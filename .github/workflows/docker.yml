@@ -27,5 +27,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: 'docker/8.2/Dockerfile'
+          context: '.'
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/menumkr-api:latest, ${{ secrets.DOCKERHUB_USERNAME }}/menumkr-api:${{ steps.vars.outputs.tag }}
