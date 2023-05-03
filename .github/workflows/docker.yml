@@ -10,20 +10,6 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-
-      - name: Copy ENV Laravel Configuration for CI
-        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
-
-      - name: Install PHP dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Set output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
@@ -37,18 +23,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Create group sail
-        run: groupadd -f sail
-
-      - name: Export user
-        run: export WWWUSER=${WWWUSER:-$UID}
-
-      - name: Export group
-        run: export WWWGROUP=${WWWGROUP:-$(id -g)}
-
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./vendor/laravel/sail/runtimes/8.2
+          context: .github/workflows
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/menumkr-api:latest, ${{ secrets.DOCKERHUB_USERNAME }}/menumkr-api:${{ steps.vars.outputs.tag }}
