@@ -37,6 +37,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Export user
+        run: export WWWUSER=${WWWUSER:-$UID}
+
+      - name: Export group
+        run: export WWWGROUP=${WWWGROUP:-$(id -g)}
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
