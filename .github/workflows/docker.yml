@@ -37,6 +37,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Create group sail
+        run: groupadd -f sail
+
       - name: Export user
         run: export WWWUSER=${WWWUSER:-$UID}
 
