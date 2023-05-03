@@ -24,9 +24,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           file: 'docker/8.2/Dockerfile'
-          context: '.'
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/menumkr-api:latest, ${{ secrets.DOCKERHUB_USERNAME }}/menumkr-api:${{ steps.vars.outputs.tag }}
