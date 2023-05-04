@@ -20,3 +20,5 @@ jobs:
           script: |
             cd menumkr-api
             composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+            php artisan config:cache
+            php artisan route:cache
