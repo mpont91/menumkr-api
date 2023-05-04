@@ -6,11 +6,11 @@ on:
       - '*'
 
 jobs:
-  docker:
+  cd:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     steps:
-      - name: executing remote ssh commands using password
+      - name: Deploy to production
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
