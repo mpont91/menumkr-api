@@ -20,7 +20,7 @@ jobs:
           script: |
             chown -R www-data:www-data /var/www/menumkr-api
             cd /var/www/menumkr-api
-            composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+            composer install --quiet --no-dev --optimize-autoloader --apcu-autoloader
             php artisan config:cache
             php artisan route:cache
             php artisan migrate --force
