@@ -18,6 +18,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            chown -R www-data:www-data menumkr-api
             cd menumkr-api
             composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
             php artisan config:cache
