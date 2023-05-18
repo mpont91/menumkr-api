@@ -8,9 +8,9 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    const DEFAULT_NAME = 'Marc Pont';
+    public const DEFAULT_NAME = 'Marc Pont';
 
-    const DEFAULT_EMAIL = 'mpont91@gmail.com';
+    public const DEFAULT_EMAIL = 'mpont91@gmail.com';
 
     /**
      * Seed the application's database.
