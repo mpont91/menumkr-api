@@ -9,33 +9,6 @@ on:
       - master
 
 jobs:
-  Pint:
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-
-      - name: Copy ENV Laravel Configuration for CI
-        run: cp .env.ci .env
-
-      - name: Install PHP dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Run laravel pint
-        run: ./vendor/bin/pint
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: PHP Linting (Pint)
-          skip_fetch: true
   ci:
     runs-on: ubuntu-22.04
     timeout-minutes: 20
@@ -69,7 +42,13 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run laravel pint
-        run: ./vendor/bin/pint --test
+        run: ./vendor/bin/pint
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: PHP Linting (Pint)
+          skip_fetch: true
 
       - name: Generate laravel key
         run: php artisan key:generate
