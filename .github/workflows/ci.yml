@@ -15,15 +15,16 @@ jobs:
     services:
       mysql:
         image: mysql/mysql-server:8.0
-        ports:
-          - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: 'password'
           MYSQL_ROOT_HOST: '%'
-          MYSQL_DATABASE: testing
-          MYSQL_USER: sail
-          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: 'testing'
+          MYSQL_USER: 'sail'
+          MYSQL_PASSWORD: 'password'
           MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        ports:
+          - '3306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout
@@ -35,7 +36,7 @@ jobs:
           php-version: 8.2
 
       - name: Copy ENV Laravel Configuration for CI
-        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
+        run: cp .env.ci .env
 
       - name: Install PHP dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -45,6 +46,9 @@ jobs:
 
       - name: Generate laravel key
         run: php artisan key:generate
+
+      - name: Run migrations
+        run: php artisan migrate
 
       - name: Execute tests
         run: php artisan test
