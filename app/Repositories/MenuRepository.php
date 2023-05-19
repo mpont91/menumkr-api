@@ -23,6 +23,7 @@ class MenuRepository implements MenuRepositoryContract
     public function store(array $data): Model
     {
         $data = array_merge($data, ['slug' => Str::slug($data['name'])]);
+
         return Menu::query()->create($data);
     }
 

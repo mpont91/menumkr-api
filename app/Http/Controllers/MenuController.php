@@ -26,6 +26,7 @@ class MenuController extends Controller
     public function store(MenuRequest $request): MenuResource
     {
         $menuRequest = array_merge($request->validated(), ['user_id' => Auth::id()]);
+
         return new MenuResource($this->menuRepository->store($menuRequest));
     }
 
@@ -37,12 +38,14 @@ class MenuController extends Controller
     public function update(MenuRequest $request, string $id): Response
     {
         $this->menuRepository->update($id, $request->validated());
+
         return response()->noContent();
     }
 
     public function destroy(string $id): Response
     {
         $this->menuRepository->destroy($id);
+
         return response()->noContent();
     }
 }
