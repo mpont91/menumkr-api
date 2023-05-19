@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\MenuRepositoryContract;
 use App\Http\Resources\MenuResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
@@ -19,7 +20,7 @@ class MenuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         return MenuResource::collection($this->menuRepository->index(Auth::id()));
     }
