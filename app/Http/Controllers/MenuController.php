@@ -6,6 +6,7 @@ use App\Contracts\MenuRepositoryContract;
 use App\Http\Resources\MenuResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
@@ -36,9 +37,9 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug): MenuResource
     {
-        //
+        return new MenuResource($this->menuRepository->find($slug));
     }
 
     /**
@@ -52,8 +53,9 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): Response
     {
-        //
+        $this->menuRepository->destroy($id);
+        return response()->noContent();
     }
 }
