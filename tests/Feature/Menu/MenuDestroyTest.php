@@ -19,7 +19,7 @@ class MenuDestroyTest extends TestCase
 
         $menuDestroyId = $user->menus->first()->id;
 
-        $response = $this->delete('/api/menus/' . $menuDestroyId);
+        $response = $this->deleteJson('/api/menus/' . $menuDestroyId);
 
         $response->assertNoContent();
     }
@@ -29,7 +29,7 @@ class MenuDestroyTest extends TestCase
         $user = User::factory()->has(Menu::factory()->count(5))->create();
         Sanctum::actingAs($user);
 
-        $response = $this->delete('/api/menus/999999');
+        $response = $this->deleteJson('/api/menus/999999');
 
         $response->assertNotFound();
     }

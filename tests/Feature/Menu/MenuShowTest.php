@@ -19,7 +19,7 @@ class MenuShowTest extends TestCase
 
         $menuShowSlug = $user->menus->first()->slug;
 
-        $response = $this->get('/api/menus/' . $menuShowSlug);
+        $response = $this->getJson('/api/menus/' . $menuShowSlug);
 
         $response->assertOk();
     }
@@ -29,7 +29,7 @@ class MenuShowTest extends TestCase
         $user = User::factory()->has(Menu::factory()->count(5))->create();
         Sanctum::actingAs($user);
 
-        $response = $this->get('/api/menus/nonexistent');
+        $response = $this->getJson('/api/menus/nonexistent');
 
         $response->assertNotFound();
     }

@@ -17,7 +17,7 @@ class MenuListTest extends TestCase
         $user = User::factory()->has(Menu::factory()->count(5))->create();
         Sanctum::actingAs($user);
 
-        $response = $this->get('/api/menus');
+        $response = $this->getJson('/api/menus');
 
         $response->assertOk();
     }
@@ -27,7 +27,7 @@ class MenuListTest extends TestCase
         $user = User::factory()->create();
         Sanctum::actingAs($user);
 
-        $response = $this->get('/api/menus');
+        $response = $this->getJson('/api/menus');
 
         $response->assertOk();
 

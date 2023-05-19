@@ -6,6 +6,7 @@ use App\Contracts\MenuRepositoryContract;
 use App\Models\Menu;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class MenuRepository implements MenuRepositoryContract
 {
@@ -21,7 +22,8 @@ class MenuRepository implements MenuRepositoryContract
 
     public function store(array $data): Model
     {
-        return Menu::factory()->create($data);
+        $data = array_merge($data, ['slug' => Str::slug($data['name'])]);
+        return Menu::query()->create($data);
     }
 
     public function update($id, $data): void
