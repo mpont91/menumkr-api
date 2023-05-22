@@ -12,6 +12,8 @@ jobs:
   ci:
     runs-on: ubuntu-22.04
     timeout-minutes: 20
+    permissions:
+      contents: write
     services:
       mysql:
         image: mysql/mysql-server:8.0
