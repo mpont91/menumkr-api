@@ -31,7 +31,6 @@ class MenuDestroyTest extends TestCase
 
         $response = $this->deleteJson('/api/menus/999999');
 
-        
         $response->assertNotFound();
     }
 }
