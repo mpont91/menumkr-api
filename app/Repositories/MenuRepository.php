@@ -17,7 +17,10 @@ class MenuRepository implements MenuRepositoryContract
 
     public function find(string $slug): Model
     {
-        return Menu::query()->where('slug', $slug)->firstOrFail();
+        return Menu::query()
+            ->with('headings', 'headings.dishes')
+            ->where('slug', $slug)
+            ->firstOrFail();
     }
 
     public function store(array $data): Model
