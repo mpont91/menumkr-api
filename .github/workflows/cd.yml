@@ -22,7 +22,7 @@ jobs:
             git fetch
             git reset --hard origin/master
             chown -R www-data:www-data .
-            composer install --quiet --no-dev --optimize-autoloader --apcu-autoloader
+            composer install --quiet --optimize-autoloader --apcu-autoloader
             php artisan config:cache
             php artisan route:cache
-            php artisan migrate --force
+            php artisan migrate:fresh --force --seed
