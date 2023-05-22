@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Menu>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Heading>
  */
-class MenuFactory extends Factory
+class HeadingFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +16,8 @@ class MenuFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->text(30);
-        $slug = Str::slug($name);
-
         return [
-            'name' => $name,
-            'slug' => $slug,
+            'name' => fake()->word(),
         ];
     }
 }

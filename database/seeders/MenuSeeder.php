@@ -12,6 +12,6 @@ class MenuSeeder extends Seeder
      */
     public function run(int $user_id): void
     {
-        Menu::factory(10)->create(['user_id' => $user_id]);
+        Menu::factory(3)->create(['user_id' => $user_id]);
     }
 }
