@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Customer;
 
+use App\Models\Currency;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +15,9 @@ class CustomerShowTest extends TestCase
 
     public function test_customer_show(): void
     {
-        $user = User::factory()->has(Menu::factory()->count(5))->create();
+        $currency = Currency::factory()->create();
+
+        $user = User::factory()->has(Menu::factory(['currency_id' => $currency->id])->count(5))->create();
 
         $menuShowSlug = $user->menus->first()->slug;
 
@@ -32,7 +35,9 @@ class CustomerShowTest extends TestCase
 
     public function test_customer_user_show(): void
     {
-        $user = User::factory()->has(Menu::factory()->count(5))->create();
+        $currency = Currency::factory()->create();
+
+        $user = User::factory()->has(Menu::factory(['currency_id' => $currency->id])->count(5))->create();
         Sanctum::actingAs($user);
 
         $menuShowSlug = $user->menus->first()->slug;

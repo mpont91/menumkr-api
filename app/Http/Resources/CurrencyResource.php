@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MenuResource extends JsonResource
+class CurrencyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class MenuResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
             'name' => $this->name,
-            'currency' => new CurrencyResource($this->currency),
-            'headings' => HeadingResource::collection($this->whenLoaded('headings')),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'symbol' => $this->symbol,
         ];
     }
 }

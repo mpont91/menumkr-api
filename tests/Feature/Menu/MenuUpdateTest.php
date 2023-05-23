@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Menu;
 
+use App\Models\Currency;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,12 +15,14 @@ class MenuUpdateTest extends TestCase
 
     public function test_menu_update(): void
     {
-        $user = User::factory()->has(Menu::factory()->count(5))->create();
+        $currency = Currency::factory()->create();
+
+        $user = User::factory()->has(Menu::factory(['currency_id' => $currency->id])->count(5))->create();
         Sanctum::actingAs($user);
 
         $menu = $user->menus->first();
 
-        $request = ['name' => 'Changing the name!'];
+        $request = ['name' => 'Changing the name!', 'currency_id' => $currency->id];
 
         $response = $this->putJson('/api/menus/' . $menu->id, $request);
 
@@ -28,7 +31,9 @@ class MenuUpdateTest extends TestCase
 
     public function test_menu_update_invalid_request(): void
     {
-        $user = User::factory()->has(Menu::factory()->count(5))->create();
+        $currency = Currency::factory()->create();
+
+        $user = User::factory()->has(Menu::factory(['currency_id' => $currency->id])->count(5))->create();
         Sanctum::actingAs($user);
 
         $menu = $user->menus->first();

@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Currency;
 use App\Models\Dish;
 use App\Models\Heading;
 use App\Models\Menu;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -40,10 +42,14 @@ class DatabaseSeeder extends Seeder
 
     private function createFakeData(): void
     {
-        $this->call(UserSeeder::class);
+        $this->call([UserSeeder::class, CurrencySeeder::class]);
 
         foreach (User::all() as $user) {
-            $this->callWith(MenuSeeder::class, ['user_id' => $user->id]);
+            $this->callWith(MenuSeeder::class, [
+                                                 'user_id' => $user->id,
+                                                 'currency_id' => $this->getRandomCurrency()->id
+                                             ]
+            );
         }
 
         foreach (Menu::all() as $menu) {
@@ -63,10 +69,11 @@ class DatabaseSeeder extends Seeder
     private function createDefaultMenu(): void
     {
         $this->menu = Menu::factory()->create([
-            'name' => 'Menu MKR',
-            'slug' => 'menu-mkr',
-            'user_id' => $this->user->id,
-        ]);
+                                                  'name' => 'Menu MKR',
+                                                  'slug' => 'menu-mkr',
+                                                  'user_id' => $this->user->id,
+                                                  'currency_id' => $this->getRandomCurrency()->id,
+                                              ]);
     }
 
     private function createDefaultHeadings(): void
@@ -89,5 +96,10 @@ class DatabaseSeeder extends Seeder
         Dish::factory()->create(['name' => 'Chocolate ice cream', 'heading_id' => $this->desserts->id]);
         Dish::factory()->create(['name' => 'Orange juice', 'heading_id' => $this->desserts->id]);
         Dish::factory()->create(['name' => 'Carrot cake', 'heading_id' => $this->desserts->id]);
+    }
+
+    private function getRandomCurrency(): Model
+    {
+        return Currency::query()->firstOrFail();
     }
 }

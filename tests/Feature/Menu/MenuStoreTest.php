@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Menu;
 
+use App\Models\Currency;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
@@ -13,10 +14,12 @@ class MenuStoreTest extends TestCase
 
     public function test_menu_store(): void
     {
+        $currency = Currency::factory()->create();
+
         $user = User::factory()->create();
         Sanctum::actingAs($user);
 
-        $request = ['name' => 'Menu MKR'];
+        $request = ['name' => 'Menu MKR', 'currency_id' => $currency->id];
         $response = $this->postJson('/api/menus', $request);
 
         $response->assertCreated();
