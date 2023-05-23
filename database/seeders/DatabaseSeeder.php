@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                 MenuSeeder::class,
                 [
                     'user_id' => $user->id,
-                    'currency_id' => Currency::query()->firstOrFail()->id
+                    'currency_id' => Currency::query()->firstOrFail()->id,
                 ]
             );
         }

@@ -23,7 +23,7 @@ class MenuRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:5|max:100',
-            'currency_id' => 'required|integer|exists:currencies,id'
+            'currency_id' => 'required|integer|exists:currencies,id',
         ];
     }
 }

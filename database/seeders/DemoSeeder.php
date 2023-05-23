@@ -39,27 +39,27 @@ class DemoSeeder extends Seeder
     private function createUser(): void
     {
         $this->user = User::factory()->create([
-                                                  'name' => 'Marc Pont',
-                                                  'email' => 'mpont91@gmail.com',
-                                              ]);
+            'name' => 'Marc Pont',
+            'email' => 'mpont91@gmail.com',
+        ]);
     }
 
     private function createCurrency()
     {
         $this->currency = Currency::query()->firstOrCreate([
-                                                               'name' => 'EUR',
-                                                               'symbol' => '€'
-                                                           ])->first();
+            'name' => 'EUR',
+            'symbol' => '€',
+        ])->first();
     }
 
     private function createMenu(): void
     {
         $this->menu = Menu::factory()->create([
-                                                  'name' => 'Menu MKR',
-                                                  'slug' => 'menu-mkr',
-                                                  'user_id' => $this->user->id,
-                                                  'currency_id' => $this->currency->id,
-                                              ]);
+            'name' => 'Menu MKR',
+            'slug' => 'menu-mkr',
+            'user_id' => $this->user->id,
+            'currency_id' => $this->currency->id,
+        ]);
     }
 
     private function createHeadings(): void
@@ -84,5 +84,4 @@ class DemoSeeder extends Seeder
         Dish::factory()->create(['name' => 'Orange juice', 'price' => 2.10, 'heading_id' => $this->desserts->id]);
         Dish::factory()->create(['name' => 'Carrot cake', 'price' => 4.85, 'heading_id' => $this->desserts->id]);
     }
-
 }
