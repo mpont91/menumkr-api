@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Deploy to production
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
